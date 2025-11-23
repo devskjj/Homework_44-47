@@ -1,0 +1,117 @@
+{
+  "books": [
+    {
+      "name": "The Lord of the Rings",
+      "description": "Fantasy",
+      "author": "J.R.R. Tolkien",
+      "id": 1,
+      "isAvailable": "true"
+    },
+    {
+      "name": "Harry Potter and the Sorcerer's Stone",
+      "description": "Fantasy",
+      "author": "J.K. Rowling",
+      "id": 2,
+      "isAvailable": "true"
+    },
+    {
+      "name": "The Great Gatsby",
+      "description": "Tragedy novel",
+      "author": "F. Scott Fitzgerald",
+      "id": 3,
+      "isAvailable": "false"
+    },
+    {
+      "name": "The Picture of Dorian Gray",
+      "description": "Gothic horror, Philosophical fiction",
+      "author": "Oscar Wilde",
+      "id": 4,
+      "isAvailable": "true"
+    },
+    {
+      "name": "The Intelligent Investor",
+      "description": "Business, Economics",
+      "author": "Benjamin Graham",
+      "id": 5,
+      "isAvailable": "false"
+    }
+  ],
+  "users": [
+    {
+      "firstName": "Ivan",
+      "lastName": "Loginov",
+      "middleName": "Borisovich",
+      "id": 1,
+      "emailConfirmed": "false",
+      "email": "null"
+    },
+    {
+      "firstName": "Aibek",
+      "lastName": "Zhunushev",
+      "middleName": "Usenovich",
+      "id": 2,
+      "emailConfirmed": "true",
+      "email": "aibek.zh@gmail.com"
+    },
+    {
+      "firstName": "Irina",
+      "lastName": "Sumaeva",
+      "middleName": "Pavlovna",
+      "id": 3,
+      "emailConfirmed": "true",
+      "email": "irish.suma@gmail.com"
+    },
+    {
+      "firstName": "Zarina",
+      "lastName": "Pulat kyzy",
+      "middleName": "null",
+      "id": 4,
+      "emailConfirmed": "false",
+      "email": "null"
+    }
+  ],
+  "records": [
+    {
+      "recordId": 1,
+      "bookId": 1,
+      "userId": 3,
+      "takeDate": "2025-01-13",
+      "returnDate": "2025-07-02"
+    },
+    {
+      "recordId": 2,
+      "bookId": 2,
+      "userId": 1,
+      "takeDate": "2025-08-24",
+      "returnDate": "2025-11-10"
+    },
+    {
+      "recordId": 3,
+      "bookId": 3,
+      "userId": 2,
+      "takeDate": "2025-11-20",
+      "returnDate": "null"
+    },
+    {
+      "recordId": 4,
+      "bookId": 4,
+      "userId": 4,
+      "takeDate": "2025-08-01",
+      "returnDate": "2025-09-09"
+    },
+    {
+      "recordId": 5,
+      "bookId": 5,
+      "userId": 1,
+      "takeDate": "2025-11-18",
+      "returnDate": "null"
+    },
+    {
+      "recordId": 6,
+      "bookId": 2,
+      "userId": 4,
+      "takeDate": "2025-07-07",
+      "returnDate": "2025-08-10"
+    }
+  ]
+}
