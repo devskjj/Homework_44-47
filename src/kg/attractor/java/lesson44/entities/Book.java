@@ -31,6 +31,10 @@ public class Book {
         return isAvailable;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setAvailable(boolean available) {
         isAvailable = available;
     }

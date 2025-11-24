@@ -5,35 +5,35 @@
       "description": "Fantasy",
       "author": "J.R.R. Tolkien",
       "id": 1,
-      "isAvailable": "true"
+      "isAvailable": true
     },
     {
       "name": "Harry Potter and the Sorcerer's Stone",
       "description": "Fantasy",
       "author": "J.K. Rowling",
       "id": 2,
-      "isAvailable": "true"
+      "isAvailable": true
     },
     {
       "name": "The Great Gatsby",
       "description": "Tragedy novel",
       "author": "F. Scott Fitzgerald",
       "id": 3,
-      "isAvailable": "false"
+      "isAvailable": false
     },
     {
       "name": "The Picture of Dorian Gray",
       "description": "Gothic horror, Philosophical fiction",
       "author": "Oscar Wilde",
       "id": 4,
-      "isAvailable": "true"
+      "isAvailable": true
     },
     {
       "name": "The Intelligent Investor",
       "description": "Business, Economics",
       "author": "Benjamin Graham",
       "id": 5,
-      "isAvailable": "false"
+      "isAvailable": false
     }
   ],
   "users": [
@@ -42,7 +42,7 @@
       "lastName": "Loginov",
       "middleName": "Borisovich",
       "id": 1,
-      "emailConfirmed": "false",
+      "emailConfirmed": false,
       "email": "null"
     },
     {
@@ -50,7 +50,7 @@
       "lastName": "Zhunushev",
       "middleName": "Usenovich",
       "id": 2,
-      "emailConfirmed": "true",
+      "emailConfirmed": true,
       "email": "aibek.zh@gmail.com"
     },
     {
@@ -58,7 +58,7 @@
       "lastName": "Sumaeva",
       "middleName": "Pavlovna",
       "id": 3,
-      "emailConfirmed": "true",
+      "emailConfirmed": true,
       "email": "irish.suma@gmail.com"
     },
     {
@@ -66,7 +66,7 @@
       "lastName": "Pulat kyzy",
       "middleName": "null",
       "id": 4,
-      "emailConfirmed": "false",
+      "emailConfirmed": false,
       "email": "null"
     }
   ],

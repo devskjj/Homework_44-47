@@ -17,6 +17,8 @@ public class Lesson44Server extends BasicServer {
     public Lesson44Server(String host, int port) throws IOException {
         super(host, port);
         registerGet("/sample", this::freemarkerSampleHandler);
+        registerGet("/books", this::booksHandler);
+
     }
 
     private static Configuration initFreeMarker() {
@@ -37,6 +39,11 @@ public class Lesson44Server extends BasicServer {
     private void freemarkerSampleHandler(HttpExchange exchange) {
         renderTemplate(exchange, "sample.html", getSampleDataModel());
     }
+
+    private void booksHandler(HttpExchange exchange) {
+        renderTemplate(exchange, "books.html", getSampleDataModel());
+    }
+
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
         try {

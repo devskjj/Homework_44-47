@@ -1,5 +1,7 @@
 package kg.attractor.java.lesson44;
 
+import kg.attractor.java.lesson44.entities.Book;
+import kg.attractor.java.lesson44.entities.BookRecord;
 import kg.attractor.java.lesson44.entities.User;
 import kg.attractor.java.lesson44.models.JournalDataModel;
 import kg.attractor.java.lesson44.utility.JsonUtil;
@@ -13,15 +15,20 @@ public class SampleDataModel {
     private User user = new User("Apache", "Lio", 1);
     private LocalDateTime currentDateTime = LocalDateTime.now();
     private List<User> customers = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
+    private List<BookRecord> records = new ArrayList<>();
 
     public SampleDataModel() {
         try {
             JournalDataModel data = JsonUtil.load("data.json");
+            List<Book> bookData = data.getBooks();
+            books.addAll(bookData);
+
+            List<BookRecord> recordsData = data.getRecords();
+            records.addAll(recordsData);
+
             List<User> users = data.getUsers();
-            customers.add(users.get(0));
-            customers.add(users.get(1));
-            customers.add(users.get(2));
-            customers.add(users.get(3));
+            customers.addAll(users);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,6 +47,22 @@ public class SampleDataModel {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public List<BookRecord> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<BookRecord> records) {
+        this.records = records;
     }
 
     public LocalDateTime getCurrentDateTime() {

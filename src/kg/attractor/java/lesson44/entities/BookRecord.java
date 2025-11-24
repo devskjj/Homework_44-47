@@ -14,4 +14,24 @@ public class BookRecord {
         this.takeDate = takeDate;
         this.returnDate = returnDate;
     }
+
+    public int getRecordId() {
+        return recordId;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getTakeDate() {
+        return takeDate;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
 }

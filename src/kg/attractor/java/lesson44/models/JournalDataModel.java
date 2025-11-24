@@ -22,4 +22,12 @@ public class JournalDataModel {
     public List<User> getUsers() {
         return users;
     }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public List<BookRecord> getRecords() {
+        return records;
+    }
 }
