@@ -13,6 +13,7 @@ import java.util.List;
 
 public class SampleDataModel {
     private User user = new User("Apache", "Lio", 1);
+    private Book book;
     private LocalDateTime currentDateTime = LocalDateTime.now();
     private List<User> customers = new ArrayList<>();
     private List<Book> books = new ArrayList<>();
@@ -41,12 +42,44 @@ public class SampleDataModel {
         customers.get(1).setEmailConfirmed(true);
     }
 
+    public SampleDataModel(int number) {
+        try {
+            JournalDataModel data = JsonUtil.load("data.json");
+            List<Book> bookData = data.getBooks();
+            books.addAll(bookData);
+            book = books.get(number - 1);
+
+            List<BookRecord> recordsData = data.getRecords();
+            records.addAll(recordsData);
+
+            List<User> users = data.getUsers();
+            customers.addAll(users);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+//        customers.add(new User("Marco", 2));
+//        customers.add(new User("Winston", 3));
+//        customers.add(new User("Amos", "Burton", 4));
+        customers.get(1).setEmailConfirmed(true);
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
     }
 
     public List<Book> getBooks() {

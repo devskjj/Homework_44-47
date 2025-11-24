@@ -10,6 +10,7 @@ import kg.attractor.java.server.ContentType;
 import kg.attractor.java.server.ResponseCodes;
 
 import java.io.*;
+import java.net.URI;
 
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
@@ -18,6 +19,9 @@ public class Lesson44Server extends BasicServer {
         super(host, port);
         registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksHandler);
+        registerGet("/books/info", this::bookInfoHandler);
+//        registerGet("/info", this::infoHandler);
+
 
     }
 
@@ -44,6 +48,13 @@ public class Lesson44Server extends BasicServer {
         renderTemplate(exchange, "books.html", getSampleDataModel());
     }
 
+    private void bookInfoHandler(HttpExchange exchange) {
+        URI uri = exchange.getRequestURI();
+        String s = uri.getQuery().replace("id=","");
+        int number = Integer.parseInt(s);
+        renderTemplate(exchange, "info.html", getSampleDataModel(number));
+    }
+
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
         try {
@@ -64,5 +75,9 @@ public class Lesson44Server extends BasicServer {
 
     private SampleDataModel getSampleDataModel() {
         return new SampleDataModel();
+    }
+
+    private SampleDataModel getSampleDataModel(int number) {
+        return new SampleDataModel(number);
     }
 }
