@@ -20,7 +20,12 @@ public class Lesson44Server extends BasicServer {
         registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksHandler);
         registerGet("/books/info", this::bookInfoHandler);
+        registerGet("/users", this::usersHandler);
+        registerGet("/users/employee", this::employeeHandler);
+
     }
+
+
 
     private static Configuration initFreeMarker() {
         try {
@@ -50,6 +55,17 @@ public class Lesson44Server extends BasicServer {
         String s = uri.getQuery().replace("id=","");
         int number = Integer.parseInt(s);
         renderTemplate(exchange, "info.html", getSampleDataModel(number));
+    }
+
+    private void usersHandler(HttpExchange exchange) {
+        renderTemplate(exchange, "users.html", getSampleDataModel());
+    }
+
+    private void employeeHandler(HttpExchange exchange) {
+        URI uri = exchange.getRequestURI();
+        String s = uri.getQuery().replace("id=","");
+        int number = Integer.parseInt(s);
+        renderTemplate(exchange, "employee.html", getSampleDataModel(number));
     }
 
 

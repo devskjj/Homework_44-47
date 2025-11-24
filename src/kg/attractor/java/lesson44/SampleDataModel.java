@@ -15,7 +15,7 @@ public class SampleDataModel {
     private User user = new User("Apache", "Lio", 1);
     private Book book;
     private LocalDateTime currentDateTime = LocalDateTime.now();
-    private List<User> customers = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
     private List<Book> books = new ArrayList<>();
     private List<BookRecord> records = new ArrayList<>();
 
@@ -28,8 +28,8 @@ public class SampleDataModel {
             List<BookRecord> recordsData = data.getRecords();
             records.addAll(recordsData);
 
-            List<User> users = data.getUsers();
-            customers.addAll(users);
+            List<User> employees = data.getUsers();
+            users.addAll(employees);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,8 +45,9 @@ public class SampleDataModel {
             List<BookRecord> recordsData = data.getRecords();
             records.addAll(recordsData);
 
-            List<User> users = data.getUsers();
-            customers.addAll(users);
+            List<User> employees = data.getUsers();
+            users.addAll(employees);
+            user = users.get(number - 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,11 +93,11 @@ public class SampleDataModel {
         this.currentDateTime = currentDateTime;
     }
 
-    public List<User> getCustomers() {
-        return customers;
+    public List<User> getUsers() {
+        return users;
     }
 
-    public void setCustomers(List<User> customers) {
-        this.customers = customers;
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

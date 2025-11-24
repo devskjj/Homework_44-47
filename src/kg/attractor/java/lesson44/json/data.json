@@ -43,7 +43,7 @@
       "middleName": "Borisovich",
       "id": 1,
       "emailConfirmed": false,
-      "email": "null"
+      "email": null
     },
     {
       "firstName": "Aibek",
@@ -64,10 +64,10 @@
     {
       "firstName": "Zarina",
       "lastName": "Pulat kyzy",
-      "middleName": "null",
+      "middleName": null,
       "id": 4,
       "emailConfirmed": false,
-      "email": "null"
+      "email": null
     }
   ],
   "records": [
@@ -90,7 +90,7 @@
       "bookId": 3,
       "userId": 2,
       "takeDate": "2025-11-20",
-      "returnDate": "null"
+      "returnDate": null
     },
     {
       "recordId": 4,
@@ -104,7 +104,7 @@
       "bookId": 5,
       "userId": 1,
       "takeDate": "2025-11-18",
-      "returnDate": "null"
+      "returnDate": null
     },
     {
       "recordId": 6,

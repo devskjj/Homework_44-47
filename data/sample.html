@@ -90,7 +90,7 @@
         </#if>
         <h3>Работа со списками:</h3>
         <ul>
-            <#list customers as customer>
+            <#list users as customer>
                 <li class="${customer?item_parity}">
                     ${customer.firstName} ${customer.email}
                 </li>
@@ -117,7 +117,7 @@
                     Четность строки
                 </div>
             </div>
-            <#list customers as customer>
+            <#list users as customer>
                 <div class="row ${customer?item_parity} flex">
                     <div class="column">
                         ${customer?counter}
