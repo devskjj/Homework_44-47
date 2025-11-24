@@ -33,13 +33,6 @@ public class SampleDataModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-//        customers.add(new User("Marco", 2));
-//        customers.add(new User("Winston", 3));
-//        customers.add(new User("Amos", "Burton", 4));
-        customers.get(1).setEmailConfirmed(true);
     }
 
     public SampleDataModel(int number) {
@@ -57,13 +50,6 @@ public class SampleDataModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-//        customers.add(new User("Marco", 2));
-//        customers.add(new User("Winston", 3));
-//        customers.add(new User("Amos", "Burton", 4));
-        customers.get(1).setEmailConfirmed(true);
     }
 
     public User getUser() {

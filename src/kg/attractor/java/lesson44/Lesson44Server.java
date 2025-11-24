@@ -20,9 +20,6 @@ public class Lesson44Server extends BasicServer {
         registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksHandler);
         registerGet("/books/info", this::bookInfoHandler);
-//        registerGet("/info", this::infoHandler);
-
-
     }
 
     private static Configuration initFreeMarker() {
