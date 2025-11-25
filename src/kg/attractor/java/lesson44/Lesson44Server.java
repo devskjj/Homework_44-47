@@ -44,12 +44,12 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void booksHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "books.html", getSampleDataModel());
+        renderTemplate(exchange, "books.ftl", getSampleDataModel());
     }
 
     private void bookInfoHandler(HttpExchange exchange) {
         int id = getIdFromUri(exchange);
-        renderTemplate(exchange, "info.html", getSampleDataModel(id));
+        renderTemplate(exchange, "info.ftl", getSampleDataModel(id));
     }
 
     private int getIdFromUri(HttpExchange exchange) {
@@ -59,12 +59,12 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void usersHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "users.html", getSampleDataModel());
+        renderTemplate(exchange, "users.ftl", getSampleDataModel());
     }
 
     private void employeeHandler(HttpExchange exchange) {
         int id = getIdFromUri(exchange);
-        renderTemplate(exchange, "employee.html", getSampleDataModel(id));
+        renderTemplate(exchange, "employee.ftl", getSampleDataModel(id));
     }
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
