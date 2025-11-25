@@ -92,7 +92,7 @@
         <ul>
             <#list users as customer>
                 <li class="${customer?item_parity}">
-                    ${customer.firstName} ${customer.email}
+                    ${customer.firstName} ${customer.email!}
                 </li>
             </#list>
         </ul>

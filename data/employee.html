@@ -24,10 +24,10 @@
                     <a class="nav-link" href="/index.html">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/books">Книги</a>
+                    <a class="nav-link"  href="/books">Книги</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/users">Сотрудники</a>
+                    <a class="nav-link active" aria-current="page" href="/users">Сотрудники</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -61,17 +61,18 @@
         <div class="card" style="w-auto">
             <ul class="list-group list-group-flush">
                 <#list records as record>
-                    <#if user.id == record.userId>
-                <li class="list-group-item <#if record.returnDate??>bg-success<#else>bg-danger</#if>"></li>
-
+                <#if user.id == record.userId>
+                <li class="list-group-item <#if record.returnDate??>bg-success<#else>bg-danger</#if>">
+                    ${record.returnDate?? ?string("Сдал", "Забрал")}
+                </li>
                 <li class="list-group-item">Название книги: ${books[record.bookId - 1].name}</li>
                 <li class="list-group-item">Дата взятия: ${record.takeDate}</li>
                 <li class="list-group-item">Дата возврата: ${record.returnDate!"-"}</li>
             </#if>
-                </#list>
-            </ul>
-        </div>
+        </#list>
+        </ul>
     </div>
+</div>
 </div>
 
 </body>

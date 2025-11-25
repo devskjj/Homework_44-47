@@ -22,9 +22,7 @@ public class Lesson44Server extends BasicServer {
         registerGet("/books/info", this::bookInfoHandler);
         registerGet("/users", this::usersHandler);
         registerGet("/users/employee", this::employeeHandler);
-
     }
-
 
 
     private static Configuration initFreeMarker() {
@@ -51,10 +49,14 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void bookInfoHandler(HttpExchange exchange) {
+        int id = getIdFromUri(exchange);
+        renderTemplate(exchange, "info.html", getSampleDataModel(id));
+    }
+
+    private int getIdFromUri(HttpExchange exchange) {
         URI uri = exchange.getRequestURI();
-        String s = uri.getQuery().replace("id=","");
-        int number = Integer.parseInt(s);
-        renderTemplate(exchange, "info.html", getSampleDataModel(number));
+        String s = uri.getQuery().replace("id=", "");
+        return Integer.parseInt(s);
     }
 
     private void usersHandler(HttpExchange exchange) {
@@ -62,12 +64,9 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void employeeHandler(HttpExchange exchange) {
-        URI uri = exchange.getRequestURI();
-        String s = uri.getQuery().replace("id=","");
-        int number = Integer.parseInt(s);
-        renderTemplate(exchange, "employee.html", getSampleDataModel(number));
+        int id = getIdFromUri(exchange);
+        renderTemplate(exchange, "employee.html", getSampleDataModel(id));
     }
-
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
         try {
@@ -90,7 +89,7 @@ public class Lesson44Server extends BasicServer {
         return new SampleDataModel();
     }
 
-    private SampleDataModel getSampleDataModel(int number) {
-        return new SampleDataModel(number);
+    private SampleDataModel getSampleDataModel(int id) {
+        return new SampleDataModel(id);
     }
 }

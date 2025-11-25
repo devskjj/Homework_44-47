@@ -19,37 +19,29 @@ public class SampleDataModel {
     private List<Book> books = new ArrayList<>();
     private List<BookRecord> records = new ArrayList<>();
 
-    public SampleDataModel() {
+    private void loadData() {
         try {
             JournalDataModel data = JsonUtil.load("data.json");
-            List<Book> bookData = data.getBooks();
-            books.addAll(bookData);
-
-            List<BookRecord> recordsData = data.getRecords();
-            records.addAll(recordsData);
-
-            List<User> employees = data.getUsers();
-            users.addAll(employees);
+            books.addAll(data.getBooks());
+            records.addAll(data.getRecords());
+            users.addAll(data.getUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public SampleDataModel(int number) {
-        try {
-            JournalDataModel data = JsonUtil.load("data.json");
-            List<Book> bookData = data.getBooks();
-            books.addAll(bookData);
-            book = books.get(number - 1);
+    public SampleDataModel() {
+        loadData();
+    }
 
-            List<BookRecord> recordsData = data.getRecords();
-            records.addAll(recordsData);
+    public SampleDataModel(int id) {
+        loadData();
+        if (id - 1 < books.size()) {
+            book = books.get(id - 1);
+        }
 
-            List<User> employees = data.getUsers();
-            users.addAll(employees);
-            user = users.get(number - 1);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (id - 1 < users.size()) {
+            user = users.get(id - 1);
         }
     }
 
