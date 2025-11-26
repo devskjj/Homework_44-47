@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleDataModel {
-    private User user = new User("Dom", "Tom", 1);
-    private Book book;
-    private LocalDateTime currentDateTime = LocalDateTime.now();
-    private static List<User> users = new ArrayList<>();
-    private static List<Book> books = new ArrayList<>();
-    private static List<BookRecord> records = new ArrayList<>();
+    private transient User user = new User("Dom", "Tom", 1);
+    private transient Book book;
+    private transient LocalDateTime currentDateTime = LocalDateTime.now();
+    private  List<User> users = new ArrayList<>();
+    private  List<Book> books = new ArrayList<>();
+    private  List<BookRecord> records = new ArrayList<>();
 
     public SampleDataModel() {
         loadData();
     }
 
-    public static void loadData() {
+    public  void loadData() {
         if (users.isEmpty() || books.isEmpty() || records.isEmpty()) {
             try {
                 JournalDataModel data = JsonUtil.load("data.json");

@@ -4,25 +4,42 @@ public class User {
     private String firstName;
     private String lastName;
     private String middleName;
-    private final int id;
+    private int id;
     private boolean emailConfirmed = false;
     private String email;
-    private int password;
+    private String password;
 
     public User(String firstName, int id) {
-        this(firstName, null, null, id);
+        this(firstName, null, null, null, id);
     }
 
     public User(String firstName, String lastName, int id) {
-        this(firstName, lastName, null, id);
+        this(firstName, lastName, null, null, id);
     }
 
-    public User(String firstName, String lastName, String middleName, int id) {
+    public User(String firstName, String email, String password, int id) {
+        this(firstName, null, null, password, id);
+        this.email = email;
+    }
+
+    public User(String firstName, String lastName, String middleName, String password, int id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
-        this.email = firstName + "@test.mail";
         this.id = id;
+        this.password = password;
+    }
+
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("User{");
+        sb.append("firstName='").append(firstName).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", password='").append(password).append('\'');
+        sb.append(", id=").append(id);
+        sb.append('}');
+        return sb.toString();
     }
 
     public String getFirstName() {

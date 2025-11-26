@@ -11,7 +11,7 @@ import java.nio.file.Path;
 
 public class JsonUtil {
     private static Gson getGson() {
-        return new GsonBuilder().setPrettyPrinting().create();
+        return new GsonBuilder().setPrettyPrinting().serializeNulls().create();
     }
 
     public static JournalDataModel load(String file) throws IOException {
@@ -24,7 +24,7 @@ public class JsonUtil {
         }
     }
 
-    public static void save(String file, JournalDataModel data) throws IOException {
+    public static void save(String file, Object data) throws IOException {
         Path path = Path.of("src/kg/attractor/java/lesson44/json", file);
 
         try (FileWriter write = new FileWriter(path.toFile())) {

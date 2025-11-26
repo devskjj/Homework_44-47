@@ -2,6 +2,7 @@ package kg.attractor.java.lesson44;
 
 import com.sun.net.httpserver.HttpExchange;
 import kg.attractor.java.lesson44.entities.User;
+import kg.attractor.java.lesson44.utility.JsonUtil;
 import kg.attractor.java.lesson44.utility.Utils;
 import kg.attractor.java.server.ContentType;
 import kg.attractor.java.server.ResponseCodes;
@@ -21,8 +22,6 @@ public class Lesson45Server extends Lesson44Server {
         registerPost("/register", this::registerPostHandler);
 
     }
-
-
 
 
     private void loginPostHandler(HttpExchange exchange) {
@@ -58,7 +57,6 @@ public class Lesson45Server extends Lesson44Server {
         String error = "Ошибка регистрация не удалась, т.к. данный email уже занят";
 
 
-
         boolean isAlreadyExists = dataModel.getUsers().stream()
                 .filter(u -> u.getEmail() != null)
                 .anyMatch(e -> e.getEmail().equalsIgnoreCase(parsed.get("user-email")));
@@ -72,6 +70,8 @@ public class Lesson45Server extends Lesson44Server {
 
         } else {
             try {
+                addNewUserToJson(parsed);
+                JsonUtil.save("data.json", dataModel);
                 sendByteData(exchange, ResponseCodes.OK, ContentType.TEXT_HTML, data.getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -79,12 +79,15 @@ public class Lesson45Server extends Lesson44Server {
         }
 
 
+    }
 
-
-
-
-
-
+    private void addNewUserToJson(Map<String, String> parsed) {
+        int newId = dataModel.getUsers().size() + 1;
+        dataModel.getUsers().add(new User(
+                parsed.get("user-name"),
+                parsed.get("user-email"),
+                parsed.get("user-password"),
+                newId));
     }
 
     private void loginHandler(HttpExchange exchange) {

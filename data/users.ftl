@@ -45,8 +45,8 @@
 <div class="list-group">
     <a href="/users/employee?id=${user.id}" class="list-group-item list-group-item-action" tabindex="0"
        data-bs-toggle="popover" data-bs-trigger="hover focus"
-       data-bs-content="Нажмите чтобы узнать о ${user.firstName} ${user.lastName} ${user.middleName!}">
-        ${user.firstName} ${user.lastName} ${user.middleName!}
+       data-bs-content="Нажмите чтобы узнать о ${user.firstName} ${user.lastName!} ${user.middleName!}">
+        ${user.firstName} ${user.lastName!} ${user.middleName!}
     </a>
 </div>
 </#list>

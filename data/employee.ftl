@@ -47,7 +47,7 @@
         <div class="card" style="w-auto">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Имя: ${user.firstName}</li>
-                <li class="list-group-item">Фамилия: ${user.lastName}</li>
+                <li class="list-group-item">Фамилия: ${user.lastName!"-"}</li>
                 <li class="list-group-item">Отчество: ${user.middleName!"-"}</li>
                 <li class="list-group-item">Email: ${user.email!"-"}</li>
 
