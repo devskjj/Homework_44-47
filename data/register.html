@@ -19,30 +19,39 @@
         <div class="legend">
             <p>Введите данные для регистрации:</p>
         </div>
-        <div class="form-element">
-            <label for="user-email">email</label>
-            <input type="email" name="user-email" id="user-email" placeholder="Электронная почта" required autofocus>
+
+        <#if error>
+        <div class="toast  text-bg-danger w-100" role="alert" aria-live="assertive"
+             aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Ошибка! Пользователь с таким email уже существует.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
         </div>
-        <div class="form-element">
-            <label for="user-name">name</label>
-            <input type="name" name="user-name" id="user-name" placeholder="Имя" required autofocus>
-        </div>
-        <div class="form-element">
-            <label for="user-password">password</label>
-            <input type="password" name="user-password" id="user-password" placeholder="Пароль" required>
-        </div>
-        <div class="hr-line">
-            <span class="details">one more step to go</span>
-        </div>
-        <div class="form-element">
-            <button class="register-button" type="submit">Зарегестрироваться</button>
-        </div>
+    </#if>
+    <div class="form-element">
+        <label for="user-email">email</label>
+        <input type="email" name="user-email" id="user-email" placeholder="Электронная почта" required autofocus>
+    </div>
+    <div class="form-element">
+        <label for="user-name">name</label>
+        <input type="name" name="user-name" id="user-name" placeholder="Имя" required autofocus>
+    </div>
+    <div class="form-element">
+        <label for="user-password">password</label>
+        <input type="password" name="user-password" id="user-password" placeholder="Пароль" required>
+    </div>
+    <div class="hr-line">
+        <span class="details">one more step to go</span>
+    </div>
+    <div class="form-element">
+        <button class="register-button" type="submit">Зарегистрироваться</button>
+    </div>
     </fieldset>
 </form>
-
-
-
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -51,6 +60,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const toastElList = document.querySelectorAll('.toast');
+    const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, { autohide: true, delay: 3000 }));
+    toastList.forEach(toast => toast.show());
+  });
 
+</script>
 </body>
 </html>
