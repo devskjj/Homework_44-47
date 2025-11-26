@@ -7,6 +7,7 @@ public class User {
     private final int id;
     private boolean emailConfirmed = false;
     private String email;
+    private int password;
 
     public User(String firstName, int id) {
         this(firstName, null, null, id);

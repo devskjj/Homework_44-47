@@ -15,8 +15,8 @@ import java.net.URI;
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
 
-    public Lesson44Server(String host, int port) throws IOException {
-        super(host, port);
+    public Lesson44Server(String host, int port, SampleDataModel dataModel) throws IOException {
+        super(host, port, dataModel);
         registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksHandler);
         registerGet("/books/info", this::bookInfoHandler);
@@ -49,7 +49,13 @@ public class Lesson44Server extends BasicServer {
 
     private void bookInfoHandler(HttpExchange exchange) {
         int id = getIdFromUri(exchange);
-        renderTemplate(exchange, "info.ftl", getSampleDataModel(id));
+
+        if (dataModel.getBookById(id) == null) {
+            respond404(exchange);
+        } else {
+            dataModel.setBook(id);
+            renderTemplate(exchange, "info.ftl", dataModel);
+        }
     }
 
     private int getIdFromUri(HttpExchange exchange) {
@@ -64,7 +70,13 @@ public class Lesson44Server extends BasicServer {
 
     private void employeeHandler(HttpExchange exchange) {
         int id = getIdFromUri(exchange);
-        renderTemplate(exchange, "employee.ftl", getSampleDataModel(id));
+
+        if (dataModel.getUserById(id) == null) {
+            respond404(exchange);
+        } else {
+            dataModel.setUser(id);
+            renderTemplate(exchange, "employee.ftl", dataModel);
+        }
     }
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {
@@ -85,10 +97,6 @@ public class Lesson44Server extends BasicServer {
     }
 
     private SampleDataModel getSampleDataModel() {
-        return new SampleDataModel();
-    }
-
-    private SampleDataModel getSampleDataModel(int id) {
-        return new SampleDataModel(id);
+        return dataModel;
     }
 }

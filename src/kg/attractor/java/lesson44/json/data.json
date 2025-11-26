@@ -42,8 +42,8 @@
       "lastName": "Loginov",
       "middleName": "Borisovich",
       "id": 1,
-      "emailConfirmed": false,
-      "email": null
+      "emailConfirmed": true,
+      "email": "123@mail.com"
     },
     {
       "firstName": "Aibek",

@@ -2,22 +2,32 @@ package kg.attractor.java.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+import kg.attractor.java.lesson44.SampleDataModel;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class BasicServer {
 
     private final HttpServer server;
     private final String dataDir = "data";
     private Map<String, RouteHandler> routes = new HashMap<>();
+    protected SampleDataModel dataModel;
 
-    protected BasicServer(String host, int port) throws IOException {
+    protected BasicServer(String host, int port, SampleDataModel dataModel) throws IOException {
         server = createServer(host, port);
+        this.dataModel = dataModel;
         registerCommonHandlers();
     }
 
@@ -62,6 +72,10 @@ public abstract class BasicServer {
         getRoutes().put("GET " + route, handler);
     }
 
+    protected final void registerPost(String route, RouteHandler handler) {
+        getRoutes().put("POST " + route, handler);
+    }
+
     protected final void registerFileHandler(String fileExt, ContentType type) {
         registerGet(fileExt, exchange -> sendFile(exchange, makeFilePath(exchange), type));
     }
@@ -101,7 +115,7 @@ public abstract class BasicServer {
         }
     }
 
-    private void respond404(HttpExchange exchange) {
+    protected void respond404(HttpExchange exchange) {
         try {
             var data = "404 Not found".getBytes();
             sendByteData(exchange, ResponseCodes.NOT_FOUND, ContentType.TEXT_PLAIN, data);
@@ -113,6 +127,23 @@ public abstract class BasicServer {
     private void handleIncomingServerRequests(HttpExchange exchange) {
         var route = getRoutes().getOrDefault(makeKey(exchange), this::respond404);
         route.handle(exchange);
+    }
+
+    protected String getContentType(HttpExchange exchange) {
+        return exchange.getRequestHeaders().getOrDefault("Content-Type", List.of("")).get(0);
+    }
+
+    protected String getRequestBody(HttpExchange exchange) {
+        InputStream is = exchange.getRequestBody();
+        Charset charset = StandardCharsets.UTF_8;
+        InputStreamReader isr = new InputStreamReader(is, charset);
+
+        try (BufferedReader br = new BufferedReader(isr)) {
+            return br.lines().collect(Collectors.joining(""));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public final void start() {
