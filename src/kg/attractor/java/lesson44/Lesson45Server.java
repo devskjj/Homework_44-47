@@ -28,13 +28,8 @@ public class Lesson45Server extends Lesson44Server {
     }
 
     private void loginPostHandler(HttpExchange exchange) {
-        String raw = getRequestBody(exchange);
-        var parsed = Utils.parseUrlEncoded(raw, "&");
-
-        boolean isMatch = dataModel.getUsers().stream()
-                .filter(u -> u.getEmail() != null)
-                .filter(u -> u.getPassword() != null && u.getPassword().equals(parsed.get("user-password")))
-                .anyMatch(u -> u.getEmail().trim().equalsIgnoreCase(parsed.get("user-email").trim()));
+        Map<String, String> parsed = parsePostBody(exchange);
+        boolean isMatch = checkUserInputPassword(parsed);
 
         if (isMatch) {
             Integer userId = getUserIdByEmail(parsed);
@@ -44,18 +39,21 @@ public class Lesson45Server extends Lesson44Server {
         }
     }
 
+    private boolean checkUserInputPassword(Map<String, String> parsed) {
+        return dataModel.getUsers().stream()
+                .filter(u -> u.getEmail() != null)
+                .filter(u -> u.getPassword() != null && u.getPassword().equals(parsed.get("user-password")))
+                .anyMatch(u -> u.getEmail().trim().equalsIgnoreCase(parsed.get("user-email").trim()));
+    }
+
     private void registerHandler(HttpExchange exchange) {
         Path path = makeFilePath("register.html");
         renderTemplate(exchange, "register.html", path);
     }
 
     private void registerPostHandler(HttpExchange exchange) {
-        String raw = getRequestBody(exchange);
-        var parsed = Utils.parseUrlEncoded(raw, "&");
-
-        boolean isAlreadyExists = dataModel.getUsers().stream()
-                .filter(u -> u.getEmail() != null)
-                .anyMatch(e -> e.getEmail().equalsIgnoreCase(parsed.get("user-email")));
+        Map<String, String> parsed = parsePostBody(exchange);
+        boolean isAlreadyExists = checkEmailExists(parsed);
 
         if (isAlreadyExists) {
             setFlagForModel("error", true, exchange, "register.html");
@@ -68,6 +66,17 @@ public class Lesson45Server extends Lesson44Server {
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean checkEmailExists(Map<String, String> parsed) {
+        return dataModel.getUsers().stream()
+                .filter(u -> u.getEmail() != null)
+                .anyMatch(e -> e.getEmail().trim().equalsIgnoreCase(parsed.get("user-email").trim()));
+    }
+
+    private Map<String, String> parsePostBody(HttpExchange exchange) {
+        String raw = getRequestBody(exchange);
+        return Utils.parseUrlEncoded(raw, "&");
     }
 
     private void setFlagForModel(String msg, boolean bool, HttpExchange exchange, String model) {

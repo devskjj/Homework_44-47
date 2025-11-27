@@ -53,6 +53,15 @@
       "emailConfirmed": false,
       "email": "zz@mail.com",
       "password": "a"
+    },
+    {
+      "firstName": "assd",
+      "lastName": null,
+      "middleName": null,
+      "id": 7,
+      "emailConfirmed": false,
+      "email": "aaa@gmail.com",
+      "password": "asdasdsd"
     }
   ],
   "books": [
