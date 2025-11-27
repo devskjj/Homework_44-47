@@ -43,7 +43,7 @@
       "id": 5,
       "emailConfirmed": false,
       "email": "denis.eroshevskii@gmail.com",
-      "password": "123asd"
+      "password": "1"
     }
   ],
   "books": [
@@ -55,7 +55,7 @@
       "isAvailable": true
     },
     {
-      "name": "Harry Potter and the Sorcerer's Stone",
+      "name": "Harry Potter and the Sorcerer\u0027s Stone",
       "description": "Fantasy",
       "author": "J.K. Rowling",
       "id": 2,
