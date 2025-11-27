@@ -61,12 +61,17 @@ public class Lesson45Server extends Lesson44Server {
                 .anyMatch(e -> e.getEmail().equalsIgnoreCase(parsed.get("user-email")));
 
         if (isAlreadyExists) {
-            redirect303(exchange, "/register?error=1");
+            Map<String, Object> templateModel = new HashMap<>();
+            templateModel.put("error", true);
+            renderTemplate(exchange, "register.html", templateModel);
         } else {
             try {
                 addNewUserToJson(parsed);
                 JsonUtil.save("data.json", dataModel);
-                sendByteData(exchange, ResponseCodes.OK, ContentType.TEXT_HTML, data.getBytes());
+
+                Map<String, Object> templateModel = new HashMap<>();
+                templateModel.put("success", true);
+                renderTemplate(exchange, "register.html", templateModel);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -101,24 +106,22 @@ public class Lesson45Server extends Lesson44Server {
 
     private void registerHandler(HttpExchange exchange) {
         Path path = makeFilePath("register.html");
-
-        Map<String, Object> templateModel = getErrorStatusFromQuery(exchange);
-        renderTemplate(exchange, "register.html", templateModel);
+        renderTemplate(exchange, "register.html", path);
     }
 
-    private Map<String, Object> getErrorStatusFromQuery(HttpExchange exchange) {
-        String query = exchange.getRequestURI().getQuery();
-        boolean error = false;
-
-        if (query != null) {
-            Map<String, String> queryMap = Utils.parseUrlEncoded(query, "&");
-            error = "1".equals(queryMap.get("error"));
-        }
-
-        Map<String, Object> templateModel = new HashMap<>();
-        templateModel.put("error", error);
-        return templateModel;
-    }
+//    private Map<String, Object> getErrorStatusFromQuery(HttpExchange exchange) {
+//        String query = exchange.getRequestURI().getQuery();
+//        boolean error = false;
+//
+//        if (query != null) {
+//            Map<String, String> queryMap = Utils.parseUrlEncoded(query, "&");
+//            error = "1".equals(queryMap.get("error"));
+//        }
+//
+//        Map<String, Object> templateModel = new HashMap<>();
+//        templateModel.put("error", error);
+//        return templateModel;
+//    }
 
 
 }

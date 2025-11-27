@@ -20,7 +20,7 @@
             <p>Введите данные для регистрации:</p>
         </div>
 
-        <#if error>
+        <#if error?? && error>
         <div class="toast  text-bg-danger w-100" role="alert" aria-live="assertive"
              aria-atomic="true">
             <div class="d-flex">
@@ -32,6 +32,19 @@
             </div>
         </div>
     </#if>
+
+    <#if success?? && success>
+    <div class="toast  text-bg-success w-100" role="alert" aria-live="assertive"
+         aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Вы успешно зарегистрировались!.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+</#if>
     <div class="form-element">
         <label for="user-email">email</label>
         <input type="email" name="user-email" id="user-email" placeholder="Электронная почта" required autofocus>
