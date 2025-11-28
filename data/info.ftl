@@ -33,9 +33,9 @@
                 </li>
             </ul>
             <form class="d-flex" role="search">
+                <button class="btn btn-outline-success me-2" type="submit">Найти</button>
                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Найти</button>
-            </form>
+                <a href="/logout" class="btn btn-outline-danger">Выход</a></form>
         </div>
     </div>
 </nav>

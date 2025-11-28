@@ -20,7 +20,14 @@ public class Lesson45Server extends Lesson44Server {
         registerGet("/register", this::registerHandler);
         registerPost("/register", this::registerPostHandler);
         registerGet("/profile", this::profileHandler);
+        registerGet("/logout", this::logoutHandler);
 //        registerGet("/profile/user", this::profileUserHandler);
+    }
+
+    private void logoutHandler(HttpExchange exchange) {
+        Cookie logout = Cookie.make("userId", "", 0, true);
+        setCookie(exchange, logout);
+        redirect303(exchange, "/login");
     }
 
     private void loginHandler(HttpExchange exchange) {
