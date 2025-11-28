@@ -23,13 +23,15 @@
                     <a class="nav-link" href="/index.html">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/books">Книги</a>
+                <#if user??><a class="nav-link active" aria-current="page" href="/books/user?id=${user.id}">Книги</a><#else>
+                    <a class="nav-link active" aria-current="page" href="/books">Книги</a></#if>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/users">Сотрудники</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/profile">Профиль</a>
+                <#if user??><a class="nav-link" href="/profile/user?id=${user.id}">Профиль</a><#else>
+                    <a class="nav-link" href="/profile">Профиль</a></#if>
                 </li>
             </ul>
             <form class="d-flex" role="search">
@@ -51,9 +53,9 @@
             <#if !book.available>
                 <#list records as record>
                     <#if book.id == record.bookId>
-                        <#list users as user>
-                            <#if user.id == record.userId>
-                                <div class="text-muted">Выдано: ${user.firstName} ${user.lastName}</div>
+                        <#list users as u>
+                            <#if u.id == record.userId>
+                                <div class="text-muted">Выдано: ${u.firstName} ${u.lastName}</div>
                             </#if>
                         </#list>
                     </#if>

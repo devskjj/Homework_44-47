@@ -5,12 +5,14 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import kg.attractor.java.lesson44.utility.Utils;
 import kg.attractor.java.server.BasicServer;
 import kg.attractor.java.server.ContentType;
 import kg.attractor.java.server.ResponseCodes;
 
 import java.io.*;
 import java.net.URI;
+import java.util.HashMap;
 
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
@@ -19,6 +21,7 @@ public class Lesson44Server extends BasicServer {
         super(host, port, dataModel);
         registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksHandler);
+        registerGet("/books/user", this::booksUserHandler);
         registerGet("/books/info", this::bookInfoHandler);
         registerGet("/users", this::usersHandler);
         registerGet("/users/employee", this::employeeHandler);
@@ -47,21 +50,54 @@ public class Lesson44Server extends BasicServer {
         renderTemplate(exchange, "books.ftl", getSampleDataModel());
     }
 
-    private void bookInfoHandler(HttpExchange exchange) {
-        int id = getIdFromUri(exchange);
+    private void booksUserHandler(HttpExchange exchange) {
+        try {
+            int id = getIdFromUri(exchange);
+            var currentUser = dataModel.getUserById(id);
 
-        if (dataModel.getBookById(id) == null) {
+            if (currentUser == null) {
+                respond404(exchange);
+                return;
+            }
+
+            var map = new HashMap<String, Object>();
+            map.put("books", dataModel.getBooks());
+            map.put("records", dataModel.getRecords());
+            map.put("users", dataModel.getUsers());
+            map.put("user", currentUser);
+
+            renderTemplate(exchange, "books.ftl", map);
+        } catch (Exception e) {
             respond404(exchange);
-        } else {
-            dataModel.setBook(id);
-            renderTemplate(exchange, "info.ftl", dataModel);
+        }
+    }
+
+    private void bookInfoHandler(HttpExchange exchange) {
+        try {
+            int id = getIdFromUri(exchange);
+
+            if (dataModel.getBookById(id) == null) {
+                respond404(exchange);
+            } else {
+                dataModel.setBook(id);
+                renderTemplate(exchange, "info.ftl", dataModel);
+            }
+        } catch (NumberFormatException e) {
+            respond404(exchange);
         }
     }
 
     private int getIdFromUri(HttpExchange exchange) {
         URI uri = exchange.getRequestURI();
-        String s = uri.getQuery().replace("id=", "");
-        return Integer.parseInt(s);
+        String s = uri.getQuery();
+
+        if (s == null) {
+            respond404(exchange);
+        }
+
+        var map = Utils.parseUrlEncoded(s, "&");
+        String idParam = map.get("id");
+        return Integer.parseInt(idParam);
     }
 
     private void usersHandler(HttpExchange exchange) {
@@ -69,13 +105,17 @@ public class Lesson44Server extends BasicServer {
     }
 
     private void employeeHandler(HttpExchange exchange) {
-        int id = getIdFromUri(exchange);
+        try {
+            int id = getIdFromUri(exchange);
 
-        if (dataModel.getUserById(id) == null) {
+            if (dataModel.getUserById(id) == null) {
+                respond404(exchange);
+            } else {
+                dataModel.setUser(id);
+                renderTemplate(exchange, "employee.ftl", dataModel);
+            }
+        } catch (NumberFormatException e) {
             respond404(exchange);
-        } else {
-            dataModel.setUser(id);
-            renderTemplate(exchange, "employee.ftl", dataModel);
         }
     }
 

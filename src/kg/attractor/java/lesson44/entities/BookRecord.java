@@ -34,4 +34,12 @@ public class BookRecord {
     public String getReturnDate() {
         return returnDate;
     }
+
+    public void setTakeDate(String takeDate) {
+        this.takeDate = takeDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
+    }
 }

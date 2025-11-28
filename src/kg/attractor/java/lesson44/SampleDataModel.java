@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleDataModel {
-    private transient User user = new User("Dom", "Tom", 1);
+    private transient User user;
     private transient Book book;
     private transient LocalDateTime currentDateTime = LocalDateTime.now();
     private  List<User> users = new ArrayList<>();
