@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import kg.attractor.java.lesson44.entities.User;
 import kg.attractor.java.lesson44.utility.JsonUtil;
 import kg.attractor.java.lesson44.utility.Utils;
+import kg.attractor.java.server.Cookie;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,7 +20,7 @@ public class Lesson45Server extends Lesson44Server {
         registerGet("/register", this::registerHandler);
         registerPost("/register", this::registerPostHandler);
         registerGet("/profile", this::profileHandler);
-        registerGet("/profile/user", this::profileUserHandler);
+//        registerGet("/profile/user", this::profileUserHandler);
     }
 
     private void loginHandler(HttpExchange exchange) {
@@ -28,12 +29,14 @@ public class Lesson45Server extends Lesson44Server {
     }
 
     private void loginPostHandler(HttpExchange exchange) {
-        Map<String, String> parsed = parsePostBody(exchange);
+        var parsed = parsePostBody(exchange);
         boolean isMatch = checkUserInputPassword(parsed);
 
         if (isMatch) {
             Integer userId = getUserIdByEmail(parsed);
-            redirect303(exchange, "/profile/user?id=" + userId);
+            Cookie session = Cookie.make("userId", userId, 600, true);
+            setCookie(exchange, session);
+            redirect303(exchange, "/profile");
         } else {
             setFlagForModel("error", true, exchange, "login.html");
         }
@@ -52,7 +55,7 @@ public class Lesson45Server extends Lesson44Server {
     }
 
     private void registerPostHandler(HttpExchange exchange) {
-        Map<String, String> parsed = parsePostBody(exchange);
+        var parsed = parsePostBody(exchange);
         boolean isAlreadyExists = checkEmailExists(parsed);
 
         if (isAlreadyExists) {
@@ -87,7 +90,18 @@ public class Lesson45Server extends Lesson44Server {
 
     private void profileHandler(HttpExchange exchange) {
         Path path = makeFilePath("profile.html");
-        renderTemplate(exchange, "profile.html", path);
+        String getCookie = getCookie(exchange);
+        try {
+            var cookieMap = Cookie.parse(getCookie);
+            var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("user", user);
+            map.put("success", true);
+            renderTemplate(exchange, "profile.html", map);
+        } catch (NumberFormatException e) {
+            renderTemplate(exchange, "profile.html", path);
+        }
     }
 
     private void profileUserHandler(HttpExchange exchange) {

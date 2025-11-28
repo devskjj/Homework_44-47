@@ -146,6 +146,15 @@ public abstract class BasicServer {
         return "";
     }
 
+    protected static void setCookie(HttpExchange exchange, Cookie cookie) {
+        exchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
+
+    }
+
+    protected static String getCookie(HttpExchange exchange) {
+        return exchange.getRequestHeaders().getOrDefault("Cookie", List.of("")).get(0);
+    }
+
     public final void start() {
         server.start();
     }
