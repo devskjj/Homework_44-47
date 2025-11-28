@@ -47,7 +47,21 @@
     Ваш профиль:
 </h1>
 
+
+
 <div class="container text-center" style="width: 18rem;">
+    <#if success?? && success>
+    <div class="toast  text-bg-success w-100" role="alert" aria-live="assertive"
+         aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Вы успешно залогинились.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+</#if>
     <div class="card-body p-0">
         <div class="card" style="w-auto">
             <ul class="list-group list-group-flush">
@@ -74,5 +88,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
         integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
         crossorigin="anonymous"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const toastElList = document.querySelectorAll('.toast');
+    const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, { autohide: false, delay: 3000 }));
+    toastList.forEach(toast => toast.show());
+  });
+
+</script>
 </body>
 </html>

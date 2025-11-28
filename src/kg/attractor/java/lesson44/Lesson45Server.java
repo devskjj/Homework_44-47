@@ -143,6 +143,7 @@ public class Lesson45Server extends Lesson44Server {
             if (user != null) {
                 var templateModel = new HashMap<>();
                 templateModel.put("user", user);
+                templateModel.put("success", true);
                 renderTemplate(exchange, "profile.html", templateModel);
             } else {
                 respond404(exchange);
