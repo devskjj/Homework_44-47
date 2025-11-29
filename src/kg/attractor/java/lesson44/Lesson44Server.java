@@ -34,20 +34,25 @@ public class Lesson44Server extends BasicServer {
 
     private void booksTakePostHandler(HttpExchange exchange) {
         var parsed = parsePostBody(exchange);
+        String action = parsed.get("action");
         int bookId = Integer.parseInt(parsed.get("bookId"));
 
         var cookieMap = Cookie.parse(getCookie(exchange));
         var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
 
         if (user.isAuthorized()) {
-            dataModel.takeBook(user.getId(), bookId);
             try {
+                if ("take".equalsIgnoreCase(action)) {
+                    dataModel.takeBook(user.getId(), bookId);
+                } else if ("return".equalsIgnoreCase(action)) {
+                    dataModel.returnBook(user.getId(), bookId);
+                }
+
                 JsonUtil.save("data.json", dataModel);
                 redirect303(exchange, "/books");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
 
 
@@ -102,7 +107,13 @@ public class Lesson44Server extends BasicServer {
 
             renderTemplate(exchange, "books.html", map);
         } catch (Exception e) {
-            renderTemplate(exchange, "books.html", getSampleDataModel());
+            var map = new HashMap<String, Object>();
+            map.put("books", dataModel.getBooks());
+            map.put("records", dataModel.getRecords());
+            map.put("users", dataModel.getUsers());
+            map.put("user", null);
+
+            renderTemplate(exchange, "books.html", map);
         }
     }
 

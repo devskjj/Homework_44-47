@@ -58,12 +58,13 @@
                         <#list users as u>
                             <#if u.id == record.userId>
                                 <div class="text-muted">---Выдано: ${u.firstName} ${u.lastName!}
-                                    <#if u.id == user.id>
-                                    <form action="/books/return" class="ms-3" method="post" style="display:inline;">
+                                    <#if user?? && u.id == user.id>
+                                    <form action="/books" class="ms-3" method="post" style="display:inline;">
+                                        <input type="hidden" name="action" value="return">
                                         <input type="hidden" name="bookId" value="${book.id}">
                                         <button class="btn btn-outline-danger">Вернуть</button>
-                                    </form></#if></div>
-
+                                    </form>
+                                    </#if></div>
                             </#if>
                         </#list>
                     </#if>
@@ -71,6 +72,7 @@
             <#else> <#if user??>
                         <#if user.authorized>
                             <form action="/books" class="ms-3" method="post" style="display:inline;">
+                                <input type="hidden" name="action" value="take">
                                 <input type="hidden" name="bookId" value="${book.id}">
                                 <button type="submit" class="btn btn-outline-success">Взять</button>
                             </form>

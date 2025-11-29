@@ -79,8 +79,17 @@ public class SampleDataModel {
                 LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 null));
         books.get(bookId - 1).setAvailable(false);
+    }
 
+    public void returnBook(int id, int bookId) {
+        if (books.get(bookId - 1).isAvailable()) return;
+        records.stream()
+                .filter(b -> b.getReturnDate() == null)
+                .filter(b -> b.getBookId() == bookId)
+                .filter(b -> b.getUserId() == id)
+                .findFirst().ifPresent(b -> b.setReturnDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
 
+        books.get(bookId - 1).setAvailable(true);
     }
 
     public List<Book> getBooks() {
@@ -114,6 +123,7 @@ public class SampleDataModel {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
 
 
 }
