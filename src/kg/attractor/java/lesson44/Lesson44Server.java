@@ -43,6 +43,13 @@ public class Lesson44Server extends BasicServer {
         if (user.isAuthorized()) {
             try {
                 if ("take".equalsIgnoreCase(action)) {
+                    if (dataModel.getRecords().stream()
+                            .filter(u -> u.getUserId() == user.getId())
+                            .filter(u -> u.getReturnDate() == null)
+                            .count() >=2) {
+                        System.out.println("Пользователь взял 2 книги");
+                        return;
+                    }
                     dataModel.takeBook(user.getId(), bookId);
                 } else if ("return".equalsIgnoreCase(action)) {
                     dataModel.returnBook(user.getId(), bookId);

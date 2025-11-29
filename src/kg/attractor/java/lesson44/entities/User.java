@@ -9,6 +9,7 @@ public class User {
     private String email;
     private String password;
     private boolean isAuthorized;
+    private int countBook;
 
     public User(String firstName, int id) {
         this(firstName, null, null, null, id);
@@ -96,5 +97,13 @@ public class User {
 
     public void setAuthorized(boolean authorized) {
         isAuthorized = authorized;
+    }
+
+    public int getCountBook() {
+        return countBook;
+    }
+
+    public void setCountBook(int countBook) {
+        this.countBook = countBook;
     }
 }
