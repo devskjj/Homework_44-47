@@ -57,7 +57,13 @@
                     <#if book.id == record.bookId && record.returnDate?has_content == false>
                         <#list users as u>
                             <#if u.id == record.userId>
-                                <div class="text-muted">---Выдано: ${u.firstName} ${u.lastName!}</div>
+                                <div class="text-muted">---Выдано: ${u.firstName} ${u.lastName!}
+                                    <#if u.id == user.id>
+                                    <form action="/books/return" class="ms-3" method="post" style="display:inline;">
+                                        <input type="hidden" name="bookId" value="${book.id}">
+                                        <button class="btn btn-outline-danger">Вернуть</button>
+                                    </form></#if></div>
+
                             </#if>
                         </#list>
                     </#if>
