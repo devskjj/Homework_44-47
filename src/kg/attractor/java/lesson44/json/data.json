@@ -8,8 +8,7 @@
       "emailConfirmed": true,
       "email": "123@mail.com",
       "password": "1",
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Aibek",
@@ -19,8 +18,7 @@
       "emailConfirmed": true,
       "email": "aibek.zh@gmail.com",
       "password": null,
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Irina",
@@ -30,8 +28,7 @@
       "emailConfirmed": true,
       "email": "irish.suma@gmail.com",
       "password": null,
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Zarina",
@@ -41,8 +38,7 @@
       "emailConfirmed": false,
       "email": null,
       "password": null,
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Denis",
@@ -52,8 +48,7 @@
       "emailConfirmed": false,
       "email": "denis.eroshevskii@gmail.com",
       "password": "1",
-      "isAuthorized": true,
-      "countBook": 0
+      "isAuthorized": true
     },
     {
       "firstName": "a",
@@ -63,8 +58,7 @@
       "emailConfirmed": false,
       "email": "zz@mail.com",
       "password": "a",
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "assd",
@@ -74,8 +68,7 @@
       "emailConfirmed": false,
       "email": "aaa@gmail.com",
       "password": "asdasdsd",
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "123",
@@ -85,8 +78,7 @@
       "emailConfirmed": false,
       "email": "zxc@gmail.com",
       "password": "123",
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     }
   ],
   "books": [
@@ -95,14 +87,14 @@
       "description": "Fantasy",
       "author": "J.R.R. Tolkien",
       "id": 1,
-      "isAvailable": false
+      "isAvailable": true
     },
     {
       "name": "Harry Potter and the Sorcerer\u0027s Stone",
       "description": "Fantasy",
       "author": "J.K. Rowling",
       "id": 2,
-      "isAvailable": false
+      "isAvailable": true
     },
     {
       "name": "The Great Gatsby",
@@ -182,20 +174,6 @@
       "userId": 5,
       "takeDate": "2025-11-29",
       "returnDate": "2025-11-29"
-    },
-    {
-      "recordId": 9,
-      "bookId": 1,
-      "userId": 5,
-      "takeDate": "2025-11-29",
-      "returnDate": null
-    },
-    {
-      "recordId": 10,
-      "bookId": 2,
-      "userId": 5,
-      "takeDate": "2025-11-29",
-      "returnDate": null
     }
   ]
 }

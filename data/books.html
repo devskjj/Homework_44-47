@@ -46,6 +46,19 @@
     Список книг и их статус:
 </h1>
 
+<#if error?? && error>
+<div class="toast  text-bg-danger w-100" role="alert" aria-live="assertive"
+     aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            Нельзя взять больше двух книг.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
+    </div>
+</div>
+</#if>
+
 <#list books as book>
 <div class="list-group">
 <div class="d-flex gap-2 justify-content-center">
@@ -99,6 +112,13 @@
 <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
 const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+</script>
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const toastElList = document.querySelectorAll('.toast');
+    const toastList = [...toastElList].map(toastEl => new bootstrap.Toast(toastEl, { autohide: true, delay: 3000 }));
+    toastList.forEach(toast => toast.show());
+  });
 </script>
 </body>
 </html>

@@ -5,6 +5,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import kg.attractor.java.lesson44.entities.User;
 import kg.attractor.java.lesson44.utility.JsonUtil;
 import kg.attractor.java.lesson44.utility.Utils;
 import kg.attractor.java.server.BasicServer;
@@ -43,13 +44,7 @@ public class Lesson44Server extends BasicServer {
         if (user.isAuthorized()) {
             try {
                 if ("take".equalsIgnoreCase(action)) {
-                    if (dataModel.getRecords().stream()
-                            .filter(u -> u.getUserId() == user.getId())
-                            .filter(u -> u.getReturnDate() == null)
-                            .count() >=2) {
-                        System.out.println("Пользователь взял 2 книги");
-                        return;
-                    }
+                    if (limitToTwoBooks(exchange, user)) return;
                     dataModel.takeBook(user.getId(), bookId);
                 } else if ("return".equalsIgnoreCase(action)) {
                     dataModel.returnBook(user.getId(), bookId);
@@ -63,6 +58,29 @@ public class Lesson44Server extends BasicServer {
         }
 
 
+    }
+
+    private boolean limitToTwoBooks(HttpExchange exchange, User user) {
+        if (dataModel.getRecords().stream()
+                .filter(u -> u.getUserId() == user.getId())
+                .filter(u -> u.getReturnDate() == null)
+                .count() >=2) {
+            var map = new HashMap<String, Object>();
+            map.put("books", dataModel.getBooks());
+            map.put("records", dataModel.getRecords());
+            map.put("users", dataModel.getUsers());
+            map.put("error", true);
+            map.put("user", user);
+            renderTemplate(exchange, "books.html", map);
+            return true;
+        }
+        return false;
+    }
+
+    private void setFlagForModel(String msg, boolean bool, HttpExchange exchange, String model) {
+        var templateModel = new HashMap<>();
+        templateModel.put(msg, bool);
+        renderTemplate(exchange, model, templateModel);
     }
 
     private Map<String, String> parsePostBody(HttpExchange exchange) {
