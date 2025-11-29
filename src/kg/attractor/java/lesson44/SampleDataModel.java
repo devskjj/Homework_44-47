@@ -7,7 +7,9 @@ import kg.attractor.java.lesson44.models.JournalDataModel;
 import kg.attractor.java.lesson44.utility.JsonUtil;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,6 +72,17 @@ public class SampleDataModel {
         }
     }
 
+    public void takeBook(int id, int bookId) {
+        if (!books.get(bookId - 1).isAvailable()) return;
+
+        records.add(new BookRecord(records.size()+1, bookId, id,
+                LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                null));
+        books.get(bookId - 1).setAvailable(false);
+
+
+    }
+
     public List<Book> getBooks() {
         return books;
     }
@@ -101,4 +114,6 @@ public class SampleDataModel {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
+
 }

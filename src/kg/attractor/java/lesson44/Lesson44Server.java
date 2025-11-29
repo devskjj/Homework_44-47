@@ -5,14 +5,18 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import kg.attractor.java.lesson44.utility.JsonUtil;
 import kg.attractor.java.lesson44.utility.Utils;
 import kg.attractor.java.server.BasicServer;
 import kg.attractor.java.server.ContentType;
+import kg.attractor.java.server.Cookie;
 import kg.attractor.java.server.ResponseCodes;
 
 import java.io.*;
 import java.net.URI;
+import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Lesson44Server extends BasicServer {
     private final static Configuration freemarker = initFreeMarker();
@@ -20,11 +24,49 @@ public class Lesson44Server extends BasicServer {
     public Lesson44Server(String host, int port, SampleDataModel dataModel) throws IOException {
         super(host, port, dataModel);
         registerGet("/sample", this::freemarkerSampleHandler);
-        registerGet("/books", this::booksHandler);
-        registerGet("/books/user", this::booksUserHandler);
+        registerGet("/books", this::booksUserHandler);
+        registerPost("/books", this::booksTakePostHandler);
+
         registerGet("/books/info", this::bookInfoHandler);
         registerGet("/users", this::usersHandler);
         registerGet("/users/employee", this::employeeHandler);
+    }
+
+    private void booksTakePostHandler(HttpExchange exchange) {
+        var parsed = parsePostBody(exchange);
+        int bookId = Integer.parseInt(parsed.get("bookId"));
+
+        var cookieMap = Cookie.parse(getCookie(exchange));
+        var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+
+        if (user.isAuthorized()) {
+            dataModel.takeBook(user.getId(), bookId);
+            try {
+                JsonUtil.save("data.json", dataModel);
+                redirect303(exchange, "/books");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+    }
+
+    private Map<String, String> parsePostBody(HttpExchange exchange) {
+        String raw = getRequestBody(exchange);
+        return Utils.parseUrlEncoded(raw, "&");
+    }
+
+
+    protected void redirect303(HttpExchange exchange, String path) {
+        try {
+            exchange.getResponseHeaders().add("Location", path);
+            exchange.sendResponseHeaders(303, 0);
+            exchange.getResponseBody().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Configuration initFreeMarker() {
@@ -46,29 +88,21 @@ public class Lesson44Server extends BasicServer {
         renderTemplate(exchange, "sample.html", getSampleDataModel());
     }
 
-    private void booksHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "books.ftl", getSampleDataModel());
-    }
 
     private void booksUserHandler(HttpExchange exchange) {
         try {
-            int id = getIdFromUri(exchange);
-            var currentUser = dataModel.getUserById(id);
-
-            if (currentUser == null) {
-                respond404(exchange);
-                return;
-            }
+            var cookieMap = Cookie.parse(getCookie(exchange));
+            var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
 
             var map = new HashMap<String, Object>();
             map.put("books", dataModel.getBooks());
             map.put("records", dataModel.getRecords());
             map.put("users", dataModel.getUsers());
-            map.put("user", currentUser);
+            map.put("user", user);
 
-            renderTemplate(exchange, "books.ftl", map);
+            renderTemplate(exchange, "books.html", map);
         } catch (Exception e) {
-            respond404(exchange);
+            renderTemplate(exchange, "books.html", getSampleDataModel());
         }
     }
 

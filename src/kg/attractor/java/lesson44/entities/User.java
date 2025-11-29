@@ -8,6 +8,7 @@ public class User {
     private boolean emailConfirmed = false;
     private String email;
     private String password;
+    private boolean isAuthorized;
 
     public User(String firstName, int id) {
         this(firstName, null, null, null, id);
@@ -87,5 +88,13 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isAuthorized() {
+        return isAuthorized;
+    }
+
+    public void setAuthorized(boolean authorized) {
+        isAuthorized = authorized;
     }
 }

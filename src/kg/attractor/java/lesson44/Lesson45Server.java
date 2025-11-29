@@ -25,6 +25,15 @@ public class Lesson45Server extends Lesson44Server {
     }
 
     private void logoutHandler(HttpExchange exchange) {
+        try {
+            var cookieMap = Cookie.parse(getCookie(exchange));
+            var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+            user.setAuthorized(false);
+        } catch (NumberFormatException e) {
+            redirect303(exchange, "/login");
+            return;
+        }
+
         Cookie logout = Cookie.make("userId", "", 0, true);
         setCookie(exchange, logout);
         redirect303(exchange, "/login");
@@ -101,6 +110,7 @@ public class Lesson45Server extends Lesson44Server {
         try {
             var cookieMap = Cookie.parse(getCookie);
             var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+            user.setAuthorized(true);
 
             Map<String, Object> map = new HashMap<>();
             map.put("user", user);

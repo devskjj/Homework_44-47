@@ -48,22 +48,38 @@
 
 <#list books as book>
 <div class="list-group">
+<div class="d-flex gap-2 justify-content-center">
     <a href="/books/info?id=${book.id}" class="list-group-item list-group-item-action" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Нажмите чтобы узнать о ${book.name}">${book.name} - <span
             class="${book.available?string('text-success', 'text-danger')}">${book.available?string('Доступна', 'Недоступна')}</span>
+
             <#if !book.available>
                 <#list records as record>
-                    <#if book.id == record.bookId>
+                    <#if book.id == record.bookId && record.returnDate?has_content == false>
                         <#list users as u>
                             <#if u.id == record.userId>
-                                <div class="text-muted">Выдано: ${u.firstName} ${u.lastName}</div>
+                                <div class="text-muted">---Выдано: ${u.firstName} ${u.lastName!}</div>
                             </#if>
                         </#list>
                     </#if>
                 </#list>
+            <#else> <#if user??>
+                        <#if user.authorized>
+                            <form action="/books" class="ms-3" method="post" style="display:inline;">
+                                <input type="hidden" name="bookId" value="${book.id}">
+                                <button type="submit" class="btn btn-outline-success">Взять</button>
+                            </form>
+                        </#if>
+                    </#if>
             </#if>
     </a>
 </div>
 </#list>
+
+<#if user??>
+ <h1> Hello ${user.firstName} </h1>
+    <#if user.authorized!"null"> you are ok </#if>
+
+  </#if>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

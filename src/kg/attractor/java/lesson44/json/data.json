@@ -7,7 +7,8 @@
       "id": 1,
       "emailConfirmed": true,
       "email": "123@mail.com",
-      "password": null
+      "password": null,
+      "isAuthorized": false
     },
     {
       "firstName": "Aibek",
@@ -16,7 +17,8 @@
       "id": 2,
       "emailConfirmed": true,
       "email": "aibek.zh@gmail.com",
-      "password": null
+      "password": null,
+      "isAuthorized": false
     },
     {
       "firstName": "Irina",
@@ -25,7 +27,8 @@
       "id": 3,
       "emailConfirmed": true,
       "email": "irish.suma@gmail.com",
-      "password": null
+      "password": null,
+      "isAuthorized": false
     },
     {
       "firstName": "Zarina",
@@ -34,7 +37,8 @@
       "id": 4,
       "emailConfirmed": false,
       "email": null,
-      "password": null
+      "password": null,
+      "isAuthorized": false
     },
     {
       "firstName": "Denis",
@@ -43,7 +47,8 @@
       "id": 5,
       "emailConfirmed": false,
       "email": "denis.eroshevskii@gmail.com",
-      "password": "1"
+      "password": "1",
+      "isAuthorized": true
     },
     {
       "firstName": "a",
@@ -52,7 +57,8 @@
       "id": 6,
       "emailConfirmed": false,
       "email": "zz@mail.com",
-      "password": "a"
+      "password": "a",
+      "isAuthorized": false
     },
     {
       "firstName": "assd",
@@ -61,7 +67,8 @@
       "id": 7,
       "emailConfirmed": false,
       "email": "aaa@gmail.com",
-      "password": "asdasdsd"
+      "password": "asdasdsd",
+      "isAuthorized": false
     },
     {
       "firstName": "123",
@@ -70,7 +77,8 @@
       "id": 8,
       "emailConfirmed": false,
       "email": "zxc@gmail.com",
-      "password": "123"
+      "password": "123",
+      "isAuthorized": false
     }
   ],
   "books": [
@@ -86,7 +94,7 @@
       "description": "Fantasy",
       "author": "J.K. Rowling",
       "id": 2,
-      "isAvailable": true
+      "isAvailable": false
     },
     {
       "name": "The Great Gatsby",
@@ -152,6 +160,13 @@
       "userId": 4,
       "takeDate": "2025-07-07",
       "returnDate": "2025-08-10"
+    },
+    {
+      "recordId": 7,
+      "bookId": 2,
+      "userId": 5,
+      "takeDate": "2025-11-29",
+      "returnDate": null
     }
   ]
 }
