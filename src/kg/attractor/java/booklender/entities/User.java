@@ -1,4 +1,4 @@
-package kg.attractor.java.lesson44.entities;
+package kg.attractor.java.booklender.entities;
 
 public class User {
     private String firstName;

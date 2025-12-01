@@ -2,7 +2,7 @@ package kg.attractor.java.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
-import kg.attractor.java.lesson44.SampleDataModel;
+import kg.attractor.java.booklender.models.DataModel;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,9 +23,9 @@ public abstract class BasicServer {
     private final HttpServer server;
     private final String dataDir = "data";
     private Map<String, RouteHandler> routes = new HashMap<>();
-    protected SampleDataModel dataModel;
+    protected DataModel dataModel;
 
-    protected BasicServer(String host, int port, SampleDataModel dataModel) throws IOException {
+    protected BasicServer(String host, int port, DataModel dataModel) throws IOException {
         server = createServer(host, port);
         this.dataModel = dataModel;
         registerCommonHandlers();

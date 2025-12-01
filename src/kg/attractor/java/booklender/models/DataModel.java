@@ -1,10 +1,9 @@
-package kg.attractor.java.lesson44;
+package kg.attractor.java.booklender.models;
 
-import kg.attractor.java.lesson44.entities.Book;
-import kg.attractor.java.lesson44.entities.BookRecord;
-import kg.attractor.java.lesson44.entities.User;
-import kg.attractor.java.lesson44.models.JournalDataModel;
-import kg.attractor.java.lesson44.utility.JsonUtil;
+import kg.attractor.java.booklender.entities.Book;
+import kg.attractor.java.booklender.entities.BookRecord;
+import kg.attractor.java.booklender.entities.User;
+import kg.attractor.java.booklender.utility.JsonUtil;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -13,22 +12,22 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SampleDataModel {
+public class DataModel {
     private transient User user;
     private transient Book book;
     private transient LocalDateTime currentDateTime = LocalDateTime.now();
-    private  List<User> users = new ArrayList<>();
-    private  List<Book> books = new ArrayList<>();
-    private  List<BookRecord> records = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
+    private List<Book> books = new ArrayList<>();
+    private List<BookRecord> records = new ArrayList<>();
 
-    public SampleDataModel() {
+    public DataModel() {
         loadData();
     }
 
-    public  void loadData() {
+    public void loadData() {
         if (users.isEmpty() || books.isEmpty() || records.isEmpty()) {
             try {
-                JournalDataModel data = JsonUtil.load("data.json");
+                JsonDataClass data = JsonUtil.load("data.json");
                 books.addAll(data.getBooks());
                 records.addAll(data.getRecords());
                 users.addAll(data.getUsers());
@@ -75,7 +74,7 @@ public class SampleDataModel {
     public void takeBook(int id, int bookId) {
         if (!books.get(bookId - 1).isAvailable()) return;
 
-        records.add(new BookRecord(records.size()+1, bookId, id,
+        records.add(new BookRecord(records.size() + 1, bookId, id,
                 LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 null));
         books.get(bookId - 1).setAvailable(false);
@@ -116,14 +115,13 @@ public class SampleDataModel {
         this.currentDateTime = currentDateTime;
     }
 
-    public  List<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
     public void setUsers(List<User> users) {
         this.users = users;
     }
-
 
 
 }

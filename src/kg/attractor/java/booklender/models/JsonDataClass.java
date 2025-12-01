@@ -1,17 +1,17 @@
-package kg.attractor.java.lesson44.models;
+package kg.attractor.java.booklender.models;
 
-import kg.attractor.java.lesson44.entities.Book;
-import kg.attractor.java.lesson44.entities.BookRecord;
-import kg.attractor.java.lesson44.entities.User;
+import kg.attractor.java.booklender.entities.Book;
+import kg.attractor.java.booklender.entities.BookRecord;
+import kg.attractor.java.booklender.entities.User;
 
 import java.util.List;
 
-public class JournalDataModel {
+public class JsonDataClass {
     private List<User> users;
     private List<Book> books;
     private List<BookRecord> records;
 
-    public JournalDataModel(List<User> users, List<Book> books, List<BookRecord> records) {
+    public JsonDataClass(List<User> users, List<Book> books, List<BookRecord> records) {
         this.users = users;
         this.books = books;
         this.records = records;

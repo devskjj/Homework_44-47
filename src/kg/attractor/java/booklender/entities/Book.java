@@ -1,4 +1,4 @@
-package kg.attractor.java.lesson44.entities;
+package kg.attractor.java.booklender.entities;
 
 public class Book {
     private final String name;

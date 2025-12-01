@@ -8,7 +8,8 @@
       "emailConfirmed": true,
       "email": "123@mail.com",
       "password": "1",
-      "isAuthorized": false
+      "isAuthorized": false,
+      "countBook": 0
     },
     {
       "firstName": "Aibek",
@@ -18,7 +19,8 @@
       "emailConfirmed": true,
       "email": "aibek.zh@gmail.com",
       "password": null,
-      "isAuthorized": false
+      "isAuthorized": false,
+      "countBook": 0
     },
     {
       "firstName": "Irina",
@@ -28,7 +30,8 @@
       "emailConfirmed": true,
       "email": "irish.suma@gmail.com",
       "password": null,
-      "isAuthorized": false
+      "isAuthorized": false,
+      "countBook": 0
     },
     {
       "firstName": "Zarina",
@@ -38,7 +41,8 @@
       "emailConfirmed": false,
       "email": null,
       "password": null,
-      "isAuthorized": false
+      "isAuthorized": false,
+      "countBook": 0
     },
     {
       "firstName": "Denis",
@@ -48,7 +52,8 @@
       "emailConfirmed": false,
       "email": "denis.eroshevskii@gmail.com",
       "password": "1",
-      "isAuthorized": true
+      "isAuthorized": false,
+      "countBook": 0
     },
     {
       "firstName": "a",
@@ -58,7 +63,8 @@
       "emailConfirmed": false,
       "email": "zz@mail.com",
       "password": "a",
-      "isAuthorized": false
+      "isAuthorized": false,
+      "countBook": 0
     },
     {
       "firstName": "assd",
@@ -68,7 +74,8 @@
       "emailConfirmed": false,
       "email": "aaa@gmail.com",
       "password": "asdasdsd",
-      "isAuthorized": false
+      "isAuthorized": false,
+      "countBook": 0
     },
     {
       "firstName": "123",
@@ -78,7 +85,19 @@
       "emailConfirmed": false,
       "email": "zxc@gmail.com",
       "password": "123",
-      "isAuthorized": false
+      "isAuthorized": false,
+      "countBook": 0
+    },
+    {
+      "firstName": "dev",
+      "lastName": null,
+      "middleName": null,
+      "id": 9,
+      "emailConfirmed": false,
+      "email": "de@asc.com",
+      "password": "2",
+      "isAuthorized": false,
+      "countBook": 0
     }
   ],
   "books": [
@@ -174,6 +193,20 @@
       "userId": 5,
       "takeDate": "2025-11-29",
       "returnDate": "2025-11-29"
+    },
+    {
+      "recordId": 9,
+      "bookId": 1,
+      "userId": 5,
+      "takeDate": "2025-12-01",
+      "returnDate": "2025-12-01"
+    },
+    {
+      "recordId": 10,
+      "bookId": 2,
+      "userId": 5,
+      "takeDate": "2025-12-01",
+      "returnDate": "2025-12-01"
     }
   ]
 }
