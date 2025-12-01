@@ -36,7 +36,10 @@
             <form class="d-flex" role="search">
                 <button class="btn btn-outline-success me-2" type="submit">Найти</button>
                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"/>
-                <a href="/logout" class="btn btn-outline-danger">Выход</a></form>
+                <#if user?? && user.authorized>
+                   <a href="/logout" class="btn btn-outline-danger">Выход</a></form>
+                </#if
+            ></form>
         </div>
     </div>
 </nav>
@@ -49,10 +52,10 @@
     <div class="card-body p-0">
         <div class="card" style="w-auto">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Имя: ${user.firstName}</li>
-                <li class="list-group-item">Фамилия: ${user.lastName!"-"}</li>
-                <li class="list-group-item">Отчество: ${user.middleName!"-"}</li>
-                <li class="list-group-item">Email: ${user.email!"-"}</li>
+                <li class="list-group-item">Имя: ${emp.firstName}</li>
+                <li class="list-group-item">Фамилия: ${emp.lastName!"-"}</li>
+                <li class="list-group-item">Отчество: ${emp.middleName!"-"}</li>
+                <li class="list-group-item">Email: ${emp.email!"-"}</li>
 
             </ul>
         </div>
@@ -64,7 +67,7 @@
         <div class="card" style="w-auto">
             <ul class="list-group list-group-flush">
                 <#list records as record>
-                <#if user.id == record.userId>
+                <#if emp.id == record.userId>
                 <li class="list-group-item <#if record.returnDate??>bg-success<#else>bg-danger</#if>">
                     ${record.returnDate?? ?string("Сдал", "Забрал")}
                 </li>

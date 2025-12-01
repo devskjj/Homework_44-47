@@ -65,12 +65,6 @@ public class DataModel {
         return books.get(id - 1);
     }
 
-    public void setBook(int id) {
-        if (id - 1 < books.size()) {
-            this.book = books.get(id - 1);
-        }
-    }
-
     public void takeBook(int id, int bookId) {
         if (!books.get(bookId - 1).isAvailable()) return;
 
@@ -122,6 +116,5 @@ public class DataModel {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-
 
 }

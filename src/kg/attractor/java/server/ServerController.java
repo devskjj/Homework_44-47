@@ -80,10 +80,8 @@ public class ServerController extends BasicServer {
 
     private void profileHandler(HttpExchange exchange) {
         Path path = makeFilePath("profile.html");
-        String getCookie = getCookie(exchange);
         try {
-            var cookieMap = Cookie.parse(getCookie);
-            var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+            User user = getUserFromCookieForMap(exchange);
             user.setAuthorized(true);
 
             Map<String, Object> map = new HashMap<>();
@@ -97,8 +95,7 @@ public class ServerController extends BasicServer {
 
     private void logoutHandler(HttpExchange exchange) {
         try {
-            var cookieMap = Cookie.parse(getCookie(exchange));
-            var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+            User user = getUserFromCookieForMap(exchange);
             user.setAuthorized(false);
         } catch (NumberFormatException e) {
             redirect303(exchange, "/login");
@@ -108,6 +105,11 @@ public class ServerController extends BasicServer {
         Cookie logout = Cookie.make("userId", "", 0, true);
         setCookie(exchange, logout);
         redirect303(exchange, "/login");
+    }
+
+    private User getUserFromCookieForMap(HttpExchange exchange) {
+        var cookieMap = Cookie.parse(getCookie(exchange));
+        return dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
     }
 
     private void setFlagForModel(String msg, boolean bool, HttpExchange exchange, String model) {
@@ -121,8 +123,7 @@ public class ServerController extends BasicServer {
         String action = parsed.get("action");
         int bookId = Integer.parseInt(parsed.get("bookId"));
 
-        var cookieMap = Cookie.parse(getCookie(exchange));
-        var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+        User user = getUserFromCookieForMap(exchange);
 
         if (user.isAuthorized()) {
             try {
@@ -157,8 +158,7 @@ public class ServerController extends BasicServer {
 
     private void booksUserHandler(HttpExchange exchange) {
         try {
-            var cookieMap = Cookie.parse(getCookie(exchange));
-            var user = dataModel.getUserById(Integer.parseInt(cookieMap.get("userId")));
+            User user = getUserFromCookieForMap(exchange);
             var map = prepareMapForRender();
             map.put("user", user);
             renderTemplate(exchange, "books.html", map);
@@ -170,34 +170,53 @@ public class ServerController extends BasicServer {
     }
 
     private void bookInfoHandler(HttpExchange exchange) {
+        var map = new HashMap<>();
+        putUserFromCookieIntoMap(exchange, map);
         try {
             int id = getIdFromUri(exchange);
-
-            if (dataModel.getBookById(id) == null) {
+            var book = dataModel.getBookById(id);
+            if (book == null) {
                 respond404(exchange);
-            } else {
-                dataModel.setBook(id);
-                renderTemplate(exchange, "info.ftl", dataModel);
+                return;
             }
-        } catch (NumberFormatException e) {
+            map.put("book", book);
+            map.put("books", dataModel.getBooks());
+            renderTemplate(exchange, "info.ftl", map);
+        } catch (Exception e) {
             respond404(exchange);
         }
     }
 
+    private void putUserFromCookieIntoMap(HttpExchange exchange, HashMap<Object, Object> map) {
+        try {
+            User user = getUserFromCookieForMap(exchange);
+            map.put("user", user);
+        } catch (NumberFormatException e) {
+            map.put("user", null);
+        }
+    }
+
     private void usersHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "users.ftl", dataModel);
+        var map = new HashMap<>();
+        putUserFromCookieIntoMap(exchange, map);
+        map.put("users", dataModel.getUsers());
+        renderTemplate(exchange, "users.ftl", map);
     }
 
     private void employeeHandler(HttpExchange exchange) {
+        var map = new HashMap<>();
+        putUserFromCookieIntoMap(exchange, map);
         try {
             int id = getIdFromUri(exchange);
-
-            if (dataModel.getUserById(id) == null) {
+            User emp = dataModel.getUserById(id);
+            if (emp == null) {
                 respond404(exchange);
-            } else {
-                dataModel.setUser(id);
-                renderTemplate(exchange, "employee.ftl", dataModel);
+                return;
             }
+            map.put("records", dataModel.getRecords());
+            map.put("books", dataModel.getBooks());
+            map.put("emp", emp);
+            renderTemplate(exchange, "employee.ftl", map);
         } catch (NumberFormatException e) {
             respond404(exchange);
         }

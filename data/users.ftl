@@ -35,7 +35,9 @@
             <form class="d-flex" role="search">
                 <button class="btn btn-outline-success me-2" type="submit">Найти</button>
                 <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search"/>
-                <a href="/logout" class="btn btn-outline-danger">Выход</a></form>
+                <#if user?? && user.authorized>
+                   <a href="/logout" class="btn btn-outline-danger">Выход</a></form>
+                </#if>
         </div>
     </div>
 </nav>
