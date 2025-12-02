@@ -1,10 +1,10 @@
 package kg.attractor.java.booklender.entities;
 
 public class Book {
-    private final String name;
-    private final String description;
-    private final String author;
-    private final int id;
+    private String name;
+    private String description;
+    private String author;
+    private int id;
     private boolean isAvailable;
 
     public Book(String name, String description, String author, int id, boolean isAvailable) {
