@@ -55,7 +55,8 @@
             Нельзя взять больше двух книг.
         </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
-                aria-label="Close"></button>
+                aria-label="Close">
+        </button>
     </div>
 </div>
 </#if>
@@ -64,8 +65,7 @@
 <div class="list-group">
     <div class="list-group-item d-flex justify-content-between align-items-center" style="min-height: 60px;">
     <a href="/books/info?id=${book.id}" class="text-decoration-none text-dark" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Нажмите чтобы узнать о ${book.name}">${book.name} - <span
-            class="${book.available?string('text-success', 'text-danger')}">${book.available?string('Доступна', 'Недоступна')}
-    </span>
+            class="${book.available?string('text-success', 'text-danger')}">${book.available?string('Доступна', 'Недоступна')}</span>
     </a>
             <div>
             <#if !book.available>
@@ -96,7 +96,7 @@
                         </#if>
                     </#if>
             </#if>
-            </div>
+       </div>
     </div>
 </div>
 </#list>

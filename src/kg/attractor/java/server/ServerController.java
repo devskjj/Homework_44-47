@@ -11,7 +11,6 @@ import kg.attractor.java.booklender.utility.JsonUtil;
 import kg.attractor.java.booklender.utility.Utils;
 
 import java.io.*;
-import java.net.URI;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -150,7 +149,7 @@ public class ServerController extends BasicServer {
             var map = prepareMapForRender();
             map.put("error", true);
             map.put("user", user);
-            renderTemplate(exchange, "books.html", map);
+            renderTemplate(exchange, "books.ftl", map);
             return true;
         }
         return false;
@@ -161,11 +160,11 @@ public class ServerController extends BasicServer {
             User user = getUserFromCookieForMap(exchange);
             var map = prepareMapForRender();
             map.put("user", user);
-            renderTemplate(exchange, "books.html", map);
+            renderTemplate(exchange, "books.ftl", map);
         } catch (Exception e) {
             var map = prepareMapForRender();
             map.put("user", null);
-            renderTemplate(exchange, "books.html", map);
+            renderTemplate(exchange, "books.ftl", map);
         }
     }
 
@@ -173,7 +172,7 @@ public class ServerController extends BasicServer {
         var map = new HashMap<>();
         putUserFromCookieIntoMap(exchange, map);
         try {
-            int id = getIdFromUri(exchange);
+            int id = getIdFromQuery(exchange);
             var book = dataModel.getBookById(id);
             if (book == null) {
                 respond404(exchange);
@@ -207,7 +206,7 @@ public class ServerController extends BasicServer {
         var map = new HashMap<>();
         putUserFromCookieIntoMap(exchange, map);
         try {
-            int id = getIdFromUri(exchange);
+            int id = getIdFromQuery(exchange);
             User emp = dataModel.getUserById(id);
             if (emp == null) {
                 respond404(exchange);
@@ -227,9 +226,8 @@ public class ServerController extends BasicServer {
         return Utils.parseUrlEncoded(raw, "&");
     }
 
-    private int getIdFromUri(HttpExchange exchange) {
-        URI uri = exchange.getRequestURI();
-        String s = uri.getQuery();
+    private int getIdFromQuery(HttpExchange exchange) {
+        String s = getQueryParams(exchange);
 
         if (s == null) {
             respond404(exchange);
