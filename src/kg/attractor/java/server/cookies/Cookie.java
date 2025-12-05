@@ -1,4 +1,4 @@
-package kg.attractor.java.server;
+package kg.attractor.java.server.cookies;
 
 import kg.attractor.java.booklender.utility.Utils;
 

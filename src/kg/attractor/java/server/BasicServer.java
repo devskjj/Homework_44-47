@@ -3,6 +3,7 @@ package kg.attractor.java.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import kg.attractor.java.booklender.models.DataModel;
+import kg.attractor.java.server.cookies.Cookie;
 import kg.attractor.java.server.enums.ContentType;
 import kg.attractor.java.server.enums.ResponseCodes;
 

@@ -9,6 +9,7 @@ import kg.attractor.java.booklender.models.DataModel;
 import kg.attractor.java.booklender.entities.User;
 import kg.attractor.java.booklender.utility.JsonUtil;
 import kg.attractor.java.booklender.utility.Utils;
+import kg.attractor.java.server.cookies.Cookie;
 import kg.attractor.java.server.enums.ContentType;
 import kg.attractor.java.server.enums.ResponseCodes;
 
@@ -38,8 +39,8 @@ public class ServerController extends BasicServer {
     }
 
     private void loginHandler(HttpExchange exchange) {
-        Path path = makeFilePath("login.html");
-        renderTemplate(exchange, "login.html", path);
+        Path path = makeFilePath("login.ftl");
+        renderTemplate(exchange, "login.ftl", path);
     }
 
     private void loginPostHandler(HttpExchange exchange) {
@@ -52,13 +53,13 @@ public class ServerController extends BasicServer {
             setCookie(exchange, session);
             redirect303(exchange, "/profile");
         } else {
-            setFlagForModel("error", true, exchange, "login.html");
+            setFlagForModel("error", true, exchange, "login.ftl");
         }
     }
 
     private void registerHandler(HttpExchange exchange) {
-        Path path = makeFilePath("register.html");
-        renderTemplate(exchange, "register.html", path);
+        Path path = makeFilePath("register.ftl");
+        renderTemplate(exchange, "register.ftl", path);
     }
 
     private void registerPostHandler(HttpExchange exchange) {
@@ -66,12 +67,12 @@ public class ServerController extends BasicServer {
         boolean isAlreadyExists = checkEmailExists(parsed);
 
         if (isAlreadyExists) {
-            setFlagForModel("error", true, exchange, "register.html");
+            setFlagForModel("error", true, exchange, "register.ftl");
         } else {
             try {
                 addNewUserToJson(parsed);
                 JsonUtil.save("data.json", dataModel);
-                setFlagForModel("success", true, exchange, "register.html");
+                setFlagForModel("success", true, exchange, "register.ftl");
             } catch (IOException e) {
                 e.printStackTrace();
             }
