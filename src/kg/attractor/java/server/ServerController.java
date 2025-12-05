@@ -86,6 +86,8 @@ public class ServerController extends BasicServer {
             Map<String, Object> map = new HashMap<>();
             map.put("user", user);
             map.put("success", true);
+            map.put("books", dataModel.getBooks());
+            map.put("records", dataModel.getRecords());
             renderTemplate(exchange, "profile.html", map);
         } catch (NumberFormatException e) {
             renderTemplate(exchange, "profile.html", path);
@@ -199,6 +201,8 @@ public class ServerController extends BasicServer {
         var map = new HashMap<>();
         putUserFromCookieIntoMap(exchange, map);
         map.put("users", dataModel.getUsers());
+        map.put("books", dataModel.getBooks());
+        map.put("records", dataModel.getRecords());
         renderTemplate(exchange, "users.ftl", map);
     }
 

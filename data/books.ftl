@@ -63,7 +63,7 @@
 
 <#list books as book>
 <div class="list-group">
-    <div class="list-group-item d-flex justify-content-between align-items-center" style="min-height: 60px;">
+    <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" style="min-height: 60px;">
     <a href="/books/info?id=${book.id}" class="text-decoration-none text-dark" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Нажмите чтобы узнать о ${book.name}">${book.name} - <span
             class="${book.available?string('text-success', 'text-danger')}">${book.available?string('Доступна', 'Недоступна')}</span>
     </a>

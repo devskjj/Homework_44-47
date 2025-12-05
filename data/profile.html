@@ -62,7 +62,7 @@
         </div>
     </div>
 </#if>
-    <div class="card-body p-0">
+    <div class="card-body p-0 mb-3">
         <div class="card" style="w-auto">
             <ul class="list-group list-group-flush">
                 <#if user??>
@@ -79,8 +79,25 @@
             </ul>
         </div>
     </div>
+<#if success?? && success>
+<div class="card-body p-0">
+    <div class="card" style="w-auto">
+        <ul class="list-group list-group-flush">
+            <p class="alert alert-secondary mb-0 fw-bold"> История по книгам:</p>
+            <#list records as record>
+            <#if user.id == record.userId>
+            <li class="list-group-item <#if record.returnDate??>bg-success<#else>bg-danger</#if>">
+                ${record.returnDate?? ?string("Сдал", "Забрал")}
+            </li>
+            <li class="list-group-item">Название книги: ${books[record.bookId - 1].name}</li>
+            <li class="list-group-item">Дата взятия: ${record.takeDate}</li>
+            <li class="list-group-item">Дата возврата: ${record.returnDate!"-"}</li>
+            </#if>
+            </#list>
+        </ul>
+    </div>
 </div>
-
+</#if>
 
 </div>
 

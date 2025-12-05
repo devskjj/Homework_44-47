@@ -48,14 +48,25 @@
 
 <#list users as user>
 <div class="list-group">
-    <a href="/users/employee?id=${user.id}" class="list-group-item list-group-item-action" tabindex="0"
+    <a href="/users/employee?id=${user.id}" class="list-group-item list-group-item-action d-flex justify-content-between" tabindex="0"
        data-bs-toggle="popover" data-bs-trigger="hover focus"
        data-bs-content="Нажмите чтобы узнать о ${user.firstName} ${user.lastName!} ${user.middleName!}">
         ${user.firstName} ${user.lastName!} ${user.middleName!}
+
+    <#list books as book>
+        <#if !book.available>
+            <#list records as record>
+                <#if book.id == record.bookId && record.returnDate?has_content == false>
+                    <#if user.id == record.userId>
+                        <span class="text-muted">Взял: ${book.name}</span>
+                    </#if>
+                </#if>
+            </#list>
+        </#if>
+    </#list>
     </a>
 </div>
 </#list>
-
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -65,10 +76,7 @@
         crossorigin="anonymous"></script>
 <script>
     const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-
-
-
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 </script>
 </body>
 </html>
