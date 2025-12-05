@@ -1,4 +1,4 @@
-package kg.attractor.java.server;
+package kg.attractor.java.server.enums;
 
 public enum ResponseCodes {
     OK(200),
