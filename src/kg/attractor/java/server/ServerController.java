@@ -27,7 +27,6 @@ public class ServerController extends BasicServer {
         registerGet("/profile", this::profileHandler);
         registerGet("/logout", this::logoutHandler);
 
-        registerGet("/sample", this::freemarkerSampleHandler);
         registerGet("/books", this::booksUserHandler);
         registerPost("/books", this::booksTakePostHandler);
         registerGet("/books/info", this::bookInfoHandler);
@@ -78,7 +77,7 @@ public class ServerController extends BasicServer {
     }
 
     private void profileHandler(HttpExchange exchange) {
-        Path path = makeFilePath("profile.html");
+        Path path = makeFilePath("profile.ftl");
         try {
             User user = getUserFromCookieForMap(exchange);
             user.setAuthorized(true);
@@ -88,9 +87,9 @@ public class ServerController extends BasicServer {
             map.put("success", true);
             map.put("books", dataModel.getBooks());
             map.put("records", dataModel.getRecords());
-            renderTemplate(exchange, "profile.html", map);
+            renderTemplate(exchange, "profile.ftl", map);
         } catch (NumberFormatException e) {
-            renderTemplate(exchange, "profile.html", path);
+            renderTemplate(exchange, "profile.ftl", path);
         }
     }
 
@@ -265,10 +264,6 @@ public class ServerController extends BasicServer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void freemarkerSampleHandler(HttpExchange exchange) {
-        renderTemplate(exchange, "sample.html", dataModel);
     }
 
     protected void renderTemplate(HttpExchange exchange, String templateFile, Object dataModel) {

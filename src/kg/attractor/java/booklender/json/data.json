@@ -5,99 +5,45 @@
       "lastName": "Loginov",
       "middleName": "Borisovich",
       "id": 1,
-      "emailConfirmed": true,
       "email": "123@mail.com",
       "password": "1",
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Aibek",
       "lastName": "Zhunushev",
       "middleName": "Usenovich",
       "id": 2,
-      "emailConfirmed": true,
       "email": "aibek.zh@gmail.com",
       "password": null,
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Irina",
       "lastName": "Sumaeva",
       "middleName": "Pavlovna",
       "id": 3,
-      "emailConfirmed": true,
       "email": "irish.suma@gmail.com",
       "password": null,
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Zarina",
       "lastName": "Pulat kyzy",
       "middleName": null,
       "id": 4,
-      "emailConfirmed": false,
       "email": null,
       "password": null,
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     },
     {
       "firstName": "Denis",
       "lastName": null,
       "middleName": null,
       "id": 5,
-      "emailConfirmed": false,
       "email": "denis.eroshevskii@gmail.com",
       "password": "1",
-      "isAuthorized": false,
-      "countBook": 0
-    },
-    {
-      "firstName": "a",
-      "lastName": null,
-      "middleName": null,
-      "id": 6,
-      "emailConfirmed": false,
-      "email": "zz@mail.com",
-      "password": "a",
-      "isAuthorized": false,
-      "countBook": 0
-    },
-    {
-      "firstName": "assd",
-      "lastName": null,
-      "middleName": null,
-      "id": 7,
-      "emailConfirmed": false,
-      "email": "aaa@gmail.com",
-      "password": "asdasdsd",
-      "isAuthorized": false,
-      "countBook": 0
-    },
-    {
-      "firstName": "123",
-      "lastName": null,
-      "middleName": null,
-      "id": 8,
-      "emailConfirmed": false,
-      "email": "zxc@gmail.com",
-      "password": "123",
-      "isAuthorized": false,
-      "countBook": 0
-    },
-    {
-      "firstName": "dev",
-      "lastName": null,
-      "middleName": null,
-      "id": 9,
-      "emailConfirmed": false,
-      "email": "de@asc.com",
-      "password": "2",
-      "isAuthorized": false,
-      "countBook": 0
+      "isAuthorized": false
     }
   ],
   "books": [
